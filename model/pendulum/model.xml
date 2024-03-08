@@ -1,0 +1,30 @@
+<mujoco model="pendulum">
+    <compiler angle="radian" autolimits="true"/>
+
+    <option timestep="0.001" integrator="implicitfast">
+        <flag energy="enable" frictionloss="disable" clampctrl="disable"/>
+    </option>
+
+    <actuator>
+        <general name="upper" joint="joint1"/>
+    </actuator>
+
+
+    <default>
+        <default class="pendulum">
+            <default class="visual">
+                <geom type="mesh" contype="0" conaffinity="0" group="2"/>
+            </default>
+        </default>
+    </default>
+
+    <!-- <statistic meansize="0.302076" extent="1.03923" center="0 0 0.5"/> -->
+    <worldbody>
+        <geom size="0.1 0.1 0.5" pos="0 0 0.5" type="box" class="visual"/>
+        <body name="link1" pos="0 0.125 0.95" quat="0 0 1 0">
+            <inertial pos="0 0 0.3" mass="1" diaginertia="1 1 1"/>
+            <joint name="joint1" pos="0 0 0" axis="0 1 0"/>
+            <geom size="0.025 0.025 0.3" pos="0 0 0.3" type="box"/>
+        </body>
+    </worldbody>
+</mujoco>

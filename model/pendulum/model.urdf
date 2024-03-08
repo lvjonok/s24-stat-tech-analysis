@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<robot name="pendulum">
+    <!--LINKS-->
+    <link name="world"/>
+    <link name="base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0.5"/>
+            <geometry>
+                <box size="0.2 0.2 1"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0.5"/>
+            <geometry>
+                <box size="0.2 0.2 1"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0 0 0.5"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+    <link name="link1">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0.3"/>
+            <geometry>
+                <box size="0.05 0.05 0.6"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0.3"/>
+            <geometry>
+                <box size="0.05 0.05 0.6"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0 0 0.3"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+    <!--JOINTS-->
+    <joint name="base_world" type="fixed">
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <parent link="world"/>
+        <child link="base_link"/>
+    </joint>
+    <joint name="joint1" type="revolute">
+        <origin rpy="0 3.141592653589793 0" xyz="0 0.125 0.95"/>
+        <parent link="base_link"/>
+        <child link="link1"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="100" lower="-1000" upper="1000" velocity="0"/>
+        <dynamics damping="0" friction="0"/>
+    </joint>
+    <transmission name="trans_joint1">
+        <type>
+            transmission_interface/SimpleTransmission
+        </type>
+        <joint name="joint1">
+            <hardwareInterface>
+                hardware_interface/EffortJointInterface
+            </hardwareInterface>
+        </joint>
+        <actuator name="motor_joint1">
+            <hardwareInterface>
+                hardware_interface/EffortJointInterface
+            </hardwareInterface>
+            <mechanicalReduction>
+                1
+            </mechanicalReduction>
+        </actuator>
+    </transmission>
+</robot>
