@@ -1,0 +1,14 @@
+name: base
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - ipykernel
+  - matplotlib
+  - scipy
+  - pip:  
+      - ipykernel
+      - mujoco==3.1.3
+      - mujoco-logger
+      - pin==2.7.0
